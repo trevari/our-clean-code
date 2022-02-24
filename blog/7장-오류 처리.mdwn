@@ -44,12 +44,17 @@
 
 # 나의 해석과 회고
 
-- 외부 API 를 사용할 때는 Wrapper 를 사용해라
-  - 실제 Toast API 를 보냈던 적
-  - 처음에는 Toast API 를 보내는 코드와 결과를 처리하는 코드가 하나의 로직에 존재했음
-  - 이후에 ToastService 라는 Wrapper 를 만들었고 Wrapper 에서 API 호출 후 파싱하고 관련된 에러만 처리함
-    - 이로 인해 테스트 코드가 작성하기 편해졌음
+이번 챕터에서 가장 흥미로웠던 부분은 바로 **Checked Exception 과 Unckecked Exception** 이 아닐까 싶다.
 
-외부 API 를 사용해서 비즈니스 로직을 정의해야 하는 상황이 발생했던 적이 있다.
+Checked Exception 과 Unckecked Exception 는 처음 자바를 배웠을 때 다뤘던 내용이고 각각 무엇을 의미하는지 이해만 하고 넘어갔던것 같다.
 
-API 를 호출하고
+`Checked Exception 은 Compile 시점에 Exception Handling 을 강제화 한다. 그에 반해 UnChecked Exception 은 Runtime 시점에 발생하므로 Exception 을 적절히 handling 해야 한다.`
+
+정도만 알고 있었는데, 이들 사이에 여러 논쟁이 있었다는 사실을 이번 챕터에서 처음 알게되었다.
+
+이런 상황에서 Checked Exception 이 OCP 에 위배된다는 새로운 사실에 흥미로웠고 덕분에 한번 더 OCP 에 대해서 생각할 수 있었다.
+
+현재도 개발을 하면서 Exception Handling 은 나에게 많이 부족한 능력인것 같다.
+
+1. Runtime Exception 이 발생할 수 있는 상황이라는 것을 인지하지 못함
+2. Exception 이 발생할 여지가 있는 상황에서 Exception Handling 을 어디서 다뤄야할지 모름
