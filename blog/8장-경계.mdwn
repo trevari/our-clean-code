@@ -37,10 +37,66 @@
 
 # 나의 해석과 회고
 
-- 학습 테스트
-  - 외부 SMS 모듈개발하면서 느낀점
-    - 나도 모르는 사이에 학습 테스트를 진행했다
-  - 타입스크립트를 개발할 때 빠르게 사용법을 익히기 위해서 작은 것 부터 하나씩 문제를 해결해나가며 하나의 기능을 완성함
-  - FakeContainer 를 이용해서 미지의 영역을 커버한다
-- 통제가 가능한 곳과 불가능한 곳의 경계
-  - Iamport 에 접근하여
+경계를 만든다는 것은 머릿속에 산발적으로 흩뿌려진 무언가를 잘 정리할 수 있는 도구가 되었다.
+
+나도 개발을 하며 무의식적으로 경계를 만들려고 노력했던 부분들이 있다. 역시 그렇지 않았던 부분들도 존재한다.
+
+여기서 중요한 것은 **내가 경계를 나도 모르는 사이에 체감하고 있더라** 라는 것이다.
+
+예로 HTTP Client 를 이용해서 Open API 를 조회할 때, 외부 라이브러리를 사용할 때, 조금이라도 더 내 입맛에 맞게 만들기 위해 그들을 고립시키려 노력한 포인트들이 있는데 이제는 확실히 그 포인트가 경계의 대상이 된다는 것을 알게 되었다.
+
+이 경계는 비단 외부 라이브러리에 해당되는 말이 아니다.
+
+아래의 코드를 봐보자.
+
+경계가 잘 설정되지 않은 코드이다.
+
+```java
+class Teacher {
+
+  Homework assign() {
+    Homework homework = new Homework();
+    return homework;
+  }
+}
+
+class Student {
+
+  HomeworkResult doHomework(Homework homework) {
+
+    boolean isValid = HomeworkValidator.validate(homework);
+    
+    if (!isValid) {
+      System.out.println("숙제가 이상하다, 안 한다");
+    }
+    System.out.println("숙제를 한다");
+  }
+}
+```
+
+강사는 `assign()` 을 통해서 과제를 출제해준다. 그럼 학생은 해당 과제를 어디선가 받아서 과제가 유효한지 확인하고 과제를 수행한다.
+
+이 코드는 경계가 존재하지 않는다.
+
+여기서 찾을 수 있는 경계는 **강사는 과제를 잘 출제하는 책임**에 선을 그을 수 있다.
+
+반면 경계를 잘 설정해준 코드를 확인해보자.
+
+```java
+class Teacher {
+  Homework assignment() {
+    Homework homework = new Homework();
+    boolean isValid = HomeworkValidator.validate(homework);
+
+    if (isValid) {
+      throw IllegalStateException();
+    }
+
+    return homework;
+  }
+}
+```
+
+강사는 위와 같이 과제를 출제할 때 스스로 과제가 유효한지 확인을 하고 그 책임을 다하고 있음을 알 수 있다.
+
+이렇듯 경계는 객체지향에서 어떤, 뿌리가 될 수 있는 개념이라고 다가왔다.
