@@ -1,0 +1,50 @@
+[개발자 책읽기] 클린 코드-애자일 소프트웨어 장인 정신 (14장-점진적인 개선)
+
+> 해당 글은 Robert C.Martin **클린 코드** 라는 책을 읽고 학습한 내용을 정리 및 회고하는 글 입니다. 자세한 사항은 [YES 24 클린 코드 - 애자일 소프트웨어 장인 정신](http://www.yes24.com/Product/Goods/11681152) 에서 확인해주세요.
+
+#### **클린 코드** - 애자일 소프트웨어 장인 정신 (Uncle Bob)
+
+- 위키북스
+- 지은이: Robert C.Martin (Uncle Bob)
+- 옮긴이: 박재호, 이해영
+
+[##_Image|kage@b9ygf9/btrr9gXuJLT/c0H8kDAQIeYzVNO0yolpn1/img.png|CDM|1.3|{"originWidth":1440,"originHeight":1440,"style":"alignCenter","width":468,"height":468}_##]
+
+---
+
+# 이번 장에서 이야기하고자 하는 것
+
+이번 장에서는 **Command Line 의 Argument 를 분석하는 유틸리티**를 만들며 이를 점직적으로 개선하는 방안을 이야기한다.
+
+이번 챕터는 책에 나오는 목록에 따라서 직접 코딩을 해본다.
+
+## 목록 14-1. 간단한 Args 사용법
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        try {
+            Args arg = new Args("l,p#,d*", args);
+
+            boolean logging = arg.getBoolean('l');
+            int port = arg.getPort('d');
+            String directory = arg.getString('d');
+            executeApplication(logging, port, directory);
+        } catch (Exception e) {
+
+        }
+    }
+
+    private static void executeApplication(boolean logging, int port, String directory) {
+
+    }
+}
+```
+
+## 목록 14-2. Args.class
+
+```java
+
+```
+
+# 나의 해석과 회고
